@@ -47,6 +47,10 @@ jobs:
           envkey_UPLOADED_FILES_DESTINATION: ${{ secrets.UPLOADED_FILES_DESTINATION }}
           file_name: .env
           fail_on_empty: false
+      
+      - name: Check .env file
+        run: |
+          cat .env
         
       - name: Build container image
         run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
