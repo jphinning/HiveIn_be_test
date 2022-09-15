@@ -26,7 +26,12 @@ jobs:
   create-envfile:
     runs-on: ubuntu-latest
     steps:
-    - name: Make envfile
+    
+
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
         envkey_MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
@@ -47,9 +52,6 @@ jobs:
         file_name: .env
         fail_on_empty: false
 
-  build_and_push:
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout the repo 
         uses: actions/checkout@v2
         
