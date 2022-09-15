@@ -22,6 +22,31 @@ env:
 
 #3
 jobs:
+
+  create-envfile:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+        envkey_MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        envkey_MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+        envkey_MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
+        envkey_API_PORT: ${{ secrets.API_PORT }}
+        envkey_MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        envkey_OAUTH_GOOGLE_ID: ${{ secrets.OAUTH_GOOGLE_ID }}
+        envkey_OAUTH_GOOGLE_SECRET_KEY: ${{ secrets.OAUTH_GOOGLE_SECRET_KEY }}
+        envkey_OAUTH_GOOGLE_REDIRECT_URL: ${{ secrets.OAUTH_GOOGLE_REDIRECT_URL }}
+        envkey_FRONTEND_SIGN_UP_REDIRECT_URL: ${{ secrets.FRONTEND_SIGN_UP_REDIRECT_URL }}
+        envkey_FRONTEND_SIGN_IN_REDIRECT_URL: ${{ secrets.FRONTEND_SIGN_IN_REDIRECT_URL }}
+        envkey_FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+        envkey_SEND_GRID_KEY: ${{ secrets.SEND_GRID_KEY }}
+        envkey_UPLOADED_FILES_DESTINATION: ${{ secrets.UPLOADED_FILES_DESTINATION }}
+        file_name: .env
+        fail_on_empty: false
+
   build_and_push:
     runs-on: ubuntu-latest
     steps:
