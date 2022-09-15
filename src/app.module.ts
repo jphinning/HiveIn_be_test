@@ -1,9 +1,8 @@
 import { ClientModule } from './modules/client/client.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DatabaseConfig } from 'src/config/database.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { SettingsInfoModule } from './modules/settings-info/settings-info.module';
 import { FreelancerModule } from './modules/freelancer/freelancer.module';
@@ -18,28 +17,7 @@ import { ContractsModule } from './modules/contracts/contracts.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule, AuthModule, ClientModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('MYSQL_HOST'),
-        port: configService.get<number>('MYSQL_PORT'),
-        username: configService.get<string>('MYSQL_USER'),
-        password: configService.get<string>('MYSQL_PASSWORD'),
-        database: configService.get<string>('MYSQL_DB_NAME'),
-        entities: [__dirname + '/entities/**/*.entity{.ts, .js}'],
-        migrations: [__dirname + '/migrations/*{.ts, .js}'],
-        timezone: 'Z',
-        logging: true,
-        migrationsRun: false,
-        autoLoadEntities: true,
-        synchronize: true,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }),
-      inject: [ConfigService],
-    }),
+    TypeOrmModule.forRoot(DatabaseConfig),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -70,7 +48,7 @@ import { ContractsModule } from './modules/contracts/contracts.module';
     ProposalModule,
     ContractsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

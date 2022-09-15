@@ -1,10 +1,8 @@
-version: "3.5"
+version: "3.9"
 
 services:
   admin:
     image: phpmyadmin/phpmyadmin:latest
-    networks:
-      - base_network
     links:
       - db:${MYSQL_HOST}
     depends_on:
@@ -18,8 +16,6 @@ services:
 
   db:
     image: mysql:5.7
-    networks:
-      - base_network
     volumes:
       - db_data:/var/lib/mysql
     ports:
@@ -30,9 +26,22 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DB_NAME}
 
-networks:
-  base_network:
-
+  # api:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - api_data:/usr/src/app
+  #   env_file:
+  #   - .${NODE_ENV}.env
+  #   # Run a command against the development stage of the image
+  #   ports:
+  #     - 4000:4000
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
 
 volumes:
   db_data:
+  api_data:
