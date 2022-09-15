@@ -26,21 +26,21 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DB_NAME}
 
-  api:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    depends_on:
-      - db
-    volumes:
-      - api_data:/usr/src/app
-    env_file:
-    - .${NODE_ENV}.env
-    # Run a command against the development stage of the image
-    ports:
-      - 4000:4000
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+  # api:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - api_data:/usr/src/app
+  #   env_file:
+  #   - .${NODE_ENV}.env
+  #   # Run a command against the development stage of the image
+  #   ports:
+  #     - 4000:4000
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
 
 volumes:
   db_data:
