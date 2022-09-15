@@ -23,14 +23,10 @@ env:
 #3
 jobs:
 
-  create-envfile:
-    runs-on: ubuntu-latest
-    steps:
-    
-
   build_and_push:
     runs-on: ubuntu-latest
     steps:
+    
       - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
