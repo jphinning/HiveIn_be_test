@@ -1,8 +1,6 @@
 import { ClientModule } from './modules/client/client.module';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatabaseConfig } from 'src/config/database.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { SettingsInfoModule } from './modules/settings-info/settings-info.module';
 import { FreelancerModule } from './modules/freelancer/freelancer.module';
@@ -14,10 +12,10 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { JobPostModule } from './modules/job-post/job-post.module';
 import { ProposalModule } from './modules/proposal/proposal.module';
 import { ContractsModule } from './modules/contracts/contracts.module';
+import { DatabaseModule } from './modules/database/database.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(DatabaseConfig),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -37,6 +35,7 @@ import { ContractsModule } from './modules/contracts/contracts.module';
     MulterModule.register({
       dest: '/uploads',
     }),
+    DatabaseModule,
     AuthModule,
     ClientModule,
     SettingsInfoModule,
@@ -47,6 +46,7 @@ import { ContractsModule } from './modules/contracts/contracts.module';
     AvatarModule,
     ProposalModule,
     ContractsModule,
+    DatabaseModule,
   ],
   controllers: [],
   providers: [],
